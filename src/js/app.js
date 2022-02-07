@@ -64,6 +64,26 @@ window.onload = function () {
       }
    }
 
+   //Акардеон для футера
+   function windowSize() {
+      if ($(window).width() > '768') {
+         $('.body-item-footer__content').slideDown();
+      }
+      else {
+         $('.body-item-footer__content').slideUp()
+      }
+   }
+   $('.toggle-block').click(function (event) {
+      if ($(window).width() <= '768') {
+         $('.toggle-block').not($(event.target)).removeClass('active');
+         $('.toggle-block').not($(event.target)).next().slideUp(300);
+         $(event.target).toggleClass('active').next().slideToggle(300);
+      }
+
+   })
+
+   $(window).on('load resize', windowSize);
+
 }
 
 
