@@ -1,0 +1,43 @@
+{
+  "name": "funiro",
+  "version": "1.0.0",
+  "description": "",
+  "main": "gulpfile.js",
+  "type": "module",
+  "scripts": {
+    "reset": "gulp order",
+    "mincss": "gulp minCss",
+    "minjs": "gulp minJs",
+    "fonts": "gulp fonts",
+    "svgSprive": "gulp svgSpriteTask"
+  },
+  "author": "GAS-ART",
+  "license": "ISC",
+  "devDependencies": {
+    "browser-sync": "latest",
+    "del": "latest",
+    "gulp": "latest",
+    "gulp-autoprefixer": "latest",
+    "gulp-clean-css": "latest",
+    "gulp-concat": "latest",
+    "gulp-file-include": "latest",
+    "gulp-fonter": "latest",
+    "gulp-fonter-fix": "latest",
+    "gulp-group-css-media-queries": "latest",
+    "gulp-newer": "latest",
+    "gulp-notify": "latest",
+    "gulp-plumber": "latest",
+    "gulp-rename": "latest",
+    "gulp-replace": "latest",
+    "gulp-sass": "latest",
+    "gulp-svg-sprite": "latest",
+    "gulp-ttf2woff2": "latest",
+    "gulp-webp": "latest",
+    "gulp-webp-html-nosvg": "latest",
+    "gulp-webpcss": "latest",
+    "sass": "latest",
+    "webp-converter": "2.2.3",
+    "webpack": "latest",
+    "webpack-stream": "latest"
+  }
+}

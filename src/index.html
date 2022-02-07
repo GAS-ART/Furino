@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ru">
+@@include('html/head.html', {
+"title": "Заголовок страницы",
+"description": "Описание страницы",
+"ogTitle": "Заголовок страницы для месенджеров",
+"ogDescription": "Описание страницы для месенджеров"
+})
+
+<body>
+   <div class="wrapper">
+      @@include('html/header.html', {})
+      <main class="page">
+
+      </main>
+      @@include('html/footer.html', {})
+      <!--  @@include('html/messengers.html', {}) -->
+   </div>
+   @@include('html/popup.html', {})
+</body>
+
+</html>

@@ -1,0 +1,137 @@
+//Percent
+@function percent($px, $from) {
+   $result: math.div($px, $from) * 100%;
+   @return $result;
+}
+//REM
+@function rem($px) {
+   $result: math.div($px, 16) + rem;
+   @return $result;
+}
+//EM
+@function em($px, $current: 16) {
+   $result: math.div($px, $current) + em;
+   @return $result;
+}
+
+@mixin adaptiveValuePX($indentType, $pcSize, $mobSize, $maxSize) {
+   $addSize: $pcSize - $mobSize;
+   @if $maxSize==1 {
+      //Только если меньше контейнера
+      #{$indentType}: $pcSize + px;
+      @media (max-width: #{$maxWidthContainer + px}) {
+         #{$indentType}: calc(#{$mobSize + px} + #{$addSize} * ((100vw - 320px) / #{$maxWidthContainer - 320}));
+      }
+   } @else if $maxSize==2 {
+      //Только если больше контейнера
+      #{$indentType}: $pcSize + px;
+      @media (min-width: #{$maxWidthContainer + px}) {
+         #{$indentType}: calc(#{$mobSize + px} + #{$addSize} * ((100vw - 320px) / #{$maxWidth - 320}));
+      }
+   } @else {
+      //Всегда
+      #{$indentType}: calc(#{$mobSize + px} + #{$addSize} * ((100vw - 320px) / #{$maxWidth - 320}));
+   }
+}
+
+@mixin adaptiveValueREM(
+   $property,
+   $startSize,
+   $minSize,
+   $widthFrom: $containerWidth,
+   $widthTo: $minWidth,
+   $keepSize: 0
+) {
+   @if ($widthFrom == $containerWidth and $maxWidthContainer == 0) {
+      $widthFrom: $maxWidth;
+   }
+   @if ($minSize <= 0) {
+      $minSize: 0.0001;
+   }
+   @if ($startSize <= 0) {
+      $startSize: 0.0001;
+   }
+
+   // Брейк-поинты в EM
+   $widthFromMedia: em($widthFrom);
+   $widthToMedia: em($widthTo);
+
+   // Формула плавающего значения
+   // Источник: https://css-tricks.com/linearly-scale-font-size-with-css-clamp-based-on-the-viewport/
+   $slope: math.div(($startSize - $minSize), ($widthFrom - $widthTo));
+   $yIntersection: -$widthTo * $slope + $minSize;
+   $flyValue: #{rem($yIntersection)}" + " #{$slope * 100}vw;
+
+   // Получение значения свойства
+   $propertyValue: #{"clamp(" rem($minSize) "," $flyValue "," rem($startSize) ")"};
+   // Если отрицательные значения
+   @if ($minSize > $startSize) {
+      $propertyValue: #{"clamp(" rem($startSize) "," $flyValue "," rem($minSize) ")"};
+   }
+
+   @if $widthFrom == $containerWidth or $widthFrom == $maxWidth or $keepSize == 1 or $keepSize == 2 {
+      @media (min-width: $widthFromMedia) {
+         #{$property}: rem($startSize);
+      }
+   }
+   @media (min-width: $widthToMedia) and (max-width: $widthFromMedia) {
+      #{$property}: $propertyValue;
+   }
+   @if $widthTo == $minWidth or $keepSize == 1 or $keepSize == 3 {
+      @media (max-width: $widthToMedia) {
+         #{$property}: rem($minSize);
+      }
+   }
+}
+
+/*
+@include adaptiveValue("свойство", начальное значение, конечное значение);
+Где:
+
+свойство — CSS-свойство, значение которого нужно адаптировать. Можно указать любое свойство значение которого указывается в цифрах.
+начальное значение — стартовое значение свойства в пикселях, пишем число без px. Обычно указывается по макету.
+конечное значение — финальное значение свойства в пикселях, пишем число без px. Значение, к которому мы хотим прийти на меньших ширинах экрана.
+Примеры:
+
+@include adaptiveValue("font-size", 50, 20);
+@include adaptiveValue("padding-top", 80, 10);
+...
+Алгоритм работы миксина
+Миксин работает на основе значений переменных $minWidth, $maxWidth, $maxWidthContainer, $containerPadding и $containerWidth расположеных в блоке «Настройка адаптивной сетки» файла scss/style.scss
+
+В итоге, по умолчанию, миксин будет работать следующим образом:
+
+Если $maxWidthContainer больше нуля, то значения свойства будут меняться в промежутке ширин от $containerWidth до $minWidth. То есть, по всей ширине ограничивающего контейнера.
+
+При этом, если ширина экрана больше чем $containerWidth, то значение свойства будет равно начальному значению. Если ширина экрана меньше чем $minWidth, то значение свойства будет равно конечному значению.
+
+Если $maxWidthContainer равен нулю, то значения свойства будут меняться в промежутке ширин от $maxWidth до $minWidth. То есть, по всей ширине экрана (вьюпорта).
+
+Дополнительные настройки и режимы работы
+Миксин позволяет указать свой промежуток ширины внутри которого будет адаптироваться значение свойства.
+
+@include adaptiveValue("свойство", начальное значение, конечное значение, ширина от, ширина до); 
+ширина от — стартовая ширина меньше которой начнется адаптация, пишем число без px.
+ширина до — конечная ширина до которой будет адаптироваться значение свойства, пишем число без px.
+Пример:
+
+@include adaptiveValue("font-size", 50, 20, 800, 480);
+
+
+
+режим работы — может принимать числовые значения 1, 2 или 3:
+
+1 — Если ширина экрана больше чем ширина от, то значение свойства будет равно начальному значению. Если ширина экрана меньше чем ширина до, то значение свойства будет равно конечному значению.
+2 — Если ширина экрана больше чем ширина от, то значение свойства будет равно начальному значению. Если ширина экрана меньше чем ширина до, то значение свойства будет по умолчанию либо наследоваться от предков.
+3 — Если ширина экрана больше чем ширина от, то значение свойства будет по умолчанию либо наследоваться от предков. Если ширина экрана меньше чем ширина до, то значение свойства будет равно конечному значению.
+
+
+Пример:
+
+@include adaptiveValue("font-size", 50, 20, 800, 480, 1);
+Также мы можем использовать несколько вызовов миксина с разными промежутками:
+
+@include adaptiveValue("font-size", 50, 20, 800, 480, 2);
+@include adaptiveValue("font-size", 20, 10, 480, 320);
+В примере произойдет следующее: значение font-size будет 50px, в промежутке ширин экрана от 800px до 480px, он будет отзывчиво адаптироваться от 50px до 20px. А в промежутке от 480px до 320px отзывчиво адаптироваться от 20px до 10px.
+*/
