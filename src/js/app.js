@@ -67,10 +67,10 @@ window.onload = function () {
    //Акардеон для футера
    function windowSize() {
       if ($(window).width() > '768') {
-         $('.body-item-footer__content').slideDown();
+         $('.toggle-block').siblings('.body-item-footer__content').slideDown();
       }
       else {
-         $('.body-item-footer__content').slideUp()
+         $('.toggle-block').siblings('.body-item-footer__content').slideUp()
       }
    }
    $('.toggle-block').click(function (event) {
@@ -83,6 +83,7 @@ window.onload = function () {
    })
 
    $(window).on('load resize', windowSize);
+   windowSize();
 
 }
 
