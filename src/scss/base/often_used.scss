@@ -1,0 +1,13 @@
+.error-input {
+   position: absolute;
+   transition: all 0.3s ease 0s;
+   left: 0;
+   bottom: rem(-25);
+   color: red;
+   visibility: hidden;
+   opacity: 0;
+}
+.error-input.active {
+   visibility: visible;
+   opacity: 1;
+}

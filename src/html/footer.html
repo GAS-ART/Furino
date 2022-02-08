@@ -89,9 +89,12 @@
                         Stay Updated
                      </div>
                      <div class="body-item-footer__content">
-                        <form action="#" class="body-item-footer__form" name="email-submit">
-                           <input type="text" placeholder="Enter your email" class="body-item-footer__input">
-                           <button type="submit" class="body-item-footer__btn _icon-send"></button>
+                        <form id="form" action="#" class="body-item-footer__form" name="emailSubmit">
+                           <input type="text" name="email" placeholder="Enter your email"
+                              class="body-item-footer__input">
+                           <div class="body-item-footer__error error-input">ошибка</div>
+                           <button type="submit" data-popup="popup"
+                              class="body-item-footer__btn _icon-send popup-link"></button>
                         </form>
                      </div>
                   </div>
@@ -100,4 +103,7 @@
          </div>
       </div>
    </div>
+   <script>
+
+   </script>
 </footer>

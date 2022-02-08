@@ -196,6 +196,7 @@
    &__form {
       display: flex;
       flex-wrap: nowrap;
+      position: relative;
    }
 
    &__input {

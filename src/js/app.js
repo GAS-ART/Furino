@@ -3,11 +3,11 @@
 // console.log(gasArt.block());
 
 import { isWebp } from './modules/functions.js';
+import { validate } from './modules/formValidate.js';
 
 isWebp();
 
 window.onload = function () {
-
    document.addEventListener('click', documentActions);
    const menuBody = document.querySelector('.menu__body');
    const menuButton = document.querySelectorAll('.menu__item-button');
@@ -15,10 +15,19 @@ window.onload = function () {
    const searchButton = document.querySelector('.search-form__button');
    const searchFormAction = document.querySelector('.search-form__form');
    const burger = document.querySelector('.icon-menu');
+   const emailSubmitForm = document.getElementById('form');
 
-   burger.addEventListener('click', () => {
+   emailSubmitForm.addEventListener('submit', formSend);
+
+   function formSend(e) {
+      validate(emailSubmitForm)
+      e.preventDefault();
+   }
+
+   burger.addEventListener('click', (e) => {
       burger.classList.toggle('open');
       menuBody.classList.toggle('active');
+      e.preventDefault;
    });
 
    //Active для выпадающего меню на тачскринах
@@ -79,7 +88,6 @@ window.onload = function () {
          $('.toggle-block').not($(event.target)).next().slideUp(300);
          $(event.target).toggleClass('active').next().slideToggle(300);
       }
-
    })
 
    $(window).on('load resize', windowSize);
