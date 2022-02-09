@@ -77,6 +77,7 @@ window.onload = function () {
    function windowSize() {
       if ($(window).width() > '768') {
          $('.toggle-block').siblings('.body-item-footer__content').slideDown();
+         $('.toggle-block').removeClass('active');
       }
       else {
          $('.toggle-block').siblings('.body-item-footer__content').slideUp()

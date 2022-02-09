@@ -20,7 +20,7 @@
    transition: all 0.8s ease 0s;
 }
 .popup__content {
-   background-color: $orangeColor;
+   background-color: #f9f1e7;
    padding: 70px;
    display: flex;
    align-items: center;
@@ -29,7 +29,8 @@
    position: relative;
    transition: all 0.8s ease 0s;
    opacity: 0;
-   transform: perspective(600px) translate(0px, -100%) rotateX(45deg);
+   // transform: perspective(600px) translate(0px, -100%) rotateX(45deg);
+   transform: translate(-150%, 0);
 }
 .popup__close {
    position: absolute;
@@ -46,6 +47,11 @@
    font-weight: 500;
    color: #000000;
    text-transform: uppercase;
+   @media (max-width: $mobile) {
+      font-size: rem(16);
+      margin: 30px 0 0 0;
+      line-height: 1.5;
+   }
 }
 .popup__text {
    display: flex;
@@ -54,11 +60,22 @@
 .popup__button {
    display: flex;
    justify-content: center;
+   padding: 15px 25%;
+   margin: 45px 0 0 0;
+   background-color: $orangeColor;
+   cursor: pointer;
+   font-weight: 500;
+   font-size: rem(25);
+   @media (max-width: $mobile) {
+      font-size: rem(16);
+      margin: 20px 0 0 0;
+   }
 }
 
 /*----POP-UP-JS----*/
 .popup.open .popup__content {
-   transform: perspective(600px) translate(0px, 0%) rotateX(0deg);
+   //transform: perspective(600px) translate(0px, 0%) rotateX(0deg);
+   transform: translate(0%, 0);
    opacity: 1;
 }
 

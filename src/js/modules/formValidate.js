@@ -5,7 +5,6 @@ export function validate(form) {
 
    if (form == document.forms.emailSubmit) {
       let fail = validateEmail(form.email.value)
-      console.log(fail);
       if (fail == false) {
          //   formSend(form);
          popUp();

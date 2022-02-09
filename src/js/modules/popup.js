@@ -4,6 +4,7 @@ export function popUp() {
 	const popUp = document.querySelector('.popup');
 	const bodyLock = document.getElementById('body');
 	const popupCloseIcon = document.querySelector('.close-popup');
+	const popupBtn = document.querySelector('.popup__button');
 
 	popUp.classList.add('open');
 	bodyLock.classList.add('lock');
@@ -15,8 +16,11 @@ export function popUp() {
 		e.preventDefault();
 	});
 
+	popupBtn.addEventListener('click', function () {
+		popupClose(popUp);
+	});
+
 	function popupClose(popupActive) {
-		console.log(popupActive);
 		popupActive.classList.remove('open');
 		let bodyLock = document.getElementById('body');
 		bodyLock.classList.remove("lock");
