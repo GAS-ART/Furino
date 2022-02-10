@@ -39,5 +39,8 @@
     "webp-converter": "2.2.3",
     "webpack": "latest",
     "webpack-stream": "latest"
+  },
+  "dependencies": {
+    "swiper": "^8.0.3"
   }
 }

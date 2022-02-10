@@ -136,11 +136,14 @@
             display: none;
          }
       }
+      @media (max-width: $mobile) {
+         display: flex;
+         justify-content: center;
+         flex-direction: row-reverse;
+         width: 100%;
+      }
       @extend ._icon-arrow-down;
-      display: flex;
-      justify-content: center;
-      flex-direction: row-reverse;
-      width: 100%;
+
       &::before {
          transition: all 0.3s ease 0s;
          @extend %ic;

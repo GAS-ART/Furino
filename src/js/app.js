@@ -4,6 +4,8 @@
 
 import { isWebp } from './modules/functions.js';
 import { validate } from './modules/formValidate.js';
+import "./modules/sliders.js";
+
 
 isWebp();
 
@@ -93,6 +95,7 @@ window.onload = function () {
 
    $(window).on('load resize', windowSize);
    windowSize();
+
 
 }
 

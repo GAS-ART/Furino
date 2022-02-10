@@ -1,1 +1,131 @@
 @import "base/forms/input";
+
+.main-slider {
+   height: 100%;
+   width: 100%;
+   position: relative;
+   top: 0;
+   left: 0;
+   background-color: #fcf8f3;
+
+   &::before {
+      content: "";
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: -384px;
+      background-color: #f9f1e7;
+   }
+
+   &__container {
+   }
+
+   &__body {
+      display: flex;
+      position: relative;
+      padding: 140px 0 0 0;
+   }
+
+   &__content {
+      flex: 1 0 percent(494, 1270);
+   }
+
+   &__slider {
+      min-width: 0;
+      flex: 1 0 percent(934, 1270);
+      display: flex;
+      flex-direction: column;
+   }
+}
+.content-main-slider {
+   &__body {
+      padding: rem(60);
+   }
+
+   &__tittle {
+      @include adaptiveValueREM("font-size", 56, 16);
+   }
+
+   &__text {
+   }
+
+   &__btn {
+   }
+}
+.slider-main {
+   &__controls {
+   }
+
+   &__body {
+   }
+
+   &__slider {
+   }
+   &__wrapper {
+   }
+
+   &__slide {
+      // width: 100%;
+   }
+}
+.swiper-slide {
+   background-color: red;
+}
+.controls {
+   &__dots {
+   }
+
+   &__buttons {
+   }
+
+   &__left-btn {
+   }
+
+   &__right-btn {
+   }
+}
+
+.swiper {
+}
+.swiper-wrapper {
+}
+.slide-main-slider {
+   &__img {
+      position: relative;
+      width: 100%;
+      padding: 50% 0 0 0;
+      img {
+         position: absolute;
+         top: 0;
+         left: 0;
+         object-fit: cover;
+         width: 100%;
+      }
+   }
+
+   &__content {
+   }
+}
+.swiper-slide {
+}
+.content-slide {
+   &__body {
+   }
+
+   &__tittle {
+   }
+
+   &__text {
+   }
+
+   &__price {
+   }
+}
+.price-slide {
+   &__price {
+   }
+
+   &__link {
+   }
+}
