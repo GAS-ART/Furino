@@ -90,6 +90,10 @@
 }
 .slider-main {
    &__controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 0 0 32px 0;
    }
 
    &__body {
@@ -113,14 +117,64 @@
 .controls {
    &__dots {
    }
+   .swiper-pagination-bullet {
+      width: 11px;
+      height: 11px;
+   }
+   .swiper-pagination-bullet.swiper-pagination-bullet-active {
+      transition: all 0.3s ease 0.1s;
+      position: relative;
+      width: 27px;
+      height: 27px;
+      border: 1px solid #e89f71;
+      border-radius: 50%;
+      //border-color: $orangeColor;
+      background-color: transparent;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      opacity: 1;
+   }
+   .swiper-pagination-bullet.swiper-pagination-bullet-active:after {
+      content: "";
+      width: 11px;
+      height: 11px;
+      background-color: $orangeColor;
+      border-radius: 50%;
+   }
 
    &__buttons {
+      display: flex;
    }
 
    &__left-btn {
+      transform: rotate(90deg);
    }
 
    &__right-btn {
+      transform: rotate(-90deg);
+   }
+   &__right-btn,
+   &__left-btn {
+      width: 48px;
+      height: 48px;
+      background-color: #e89f71;
+      border-radius: 50%;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease 0s;
+      &:hover {
+         background-color: rgba(232, 159, 113, 0.3);
+         color: $orangeColor;
+      }
+      &::before {
+         font-size: 10px;
+      }
+      &:not(:last-child) {
+         margin: 0 8px 0 0;
+      }
    }
 }
 
