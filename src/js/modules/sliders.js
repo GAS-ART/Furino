@@ -11,6 +11,7 @@ function initSliders() {
       loop: true,
       loopAdditionalSlides: 5,
       speed: 800,
+      parallax: true,
       pagination: {
          el: '.controls__dots',
          clickable: true,
