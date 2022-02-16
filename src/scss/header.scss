@@ -1,5 +1,20 @@
 //====================================================================================================
 .header {
+	position: absolute;
+	min-height: 40px;
+	@media (max-width: $mobileSmall) {
+		min-height: 5px;
+	}
+	&._scroll {
+		.header__wraper {
+			background-color: rgb(255, 255, 255, 0.9);
+			@media (any-hover: hover) {
+				&:hover {
+					background-color: rgb(255, 255, 255, 1);
+				}
+			}
+		}
+	}
 }
 
 .header {

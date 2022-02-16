@@ -66,6 +66,8 @@
    &__tittle {
       @include adaptiveValueREM("font-size", 56, 20);
       margin-bottom: em(15, 56);
+      color: $mainColor;
+      font-weight: 700;
       @media (max-width: em(1200)) {
          text-align: center;
       }
@@ -160,6 +162,9 @@
          width: 104%;
          overflow: hidden;
          order: 1;
+      }
+      @media (max-width: $mobileSmall) {
+         width: 108%;
       }
    }
 

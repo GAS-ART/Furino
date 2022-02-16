@@ -96,6 +96,22 @@ window.onload = function () {
    $(window).on('load resize', windowSize);
    windowSize();
 
+   //Прокрутка header
+   const headerElement = document.querySelector('.header');
+
+   function watchHeader(entries) {
+      if (entries[0].isIntersecting) {
+         entries[0].target.classList.remove('_scroll')
+      } else {
+         entries[0].target.classList.add('_scroll')
+      }
+
+   }
+
+
+
+   const headerObserver = new IntersectionObserver(watchHeader);
+   headerObserver.observe(headerElement);
 
 }
 
