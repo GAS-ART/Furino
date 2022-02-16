@@ -2,18 +2,14 @@
 .footer {
    position: relative;
    background-color: #ffffff;
-   margin: rem(40) 0 0 0;
    overflow-y: auto;
-   @media (max-width: em(1290)) {
-      margin: rem(70) 0 0 0;
-   }
    &__container {
    }
 
    &__body {
       position: relative;
       min-height: rem(136);
-      margin: rem(50) 0;
+      padding: rem(50) 0;
       border-top: solid 1px;
       border-color: #d8d8d8;
    }
