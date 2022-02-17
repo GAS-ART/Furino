@@ -412,3 +412,91 @@
 }
 /*ADVANTAGES*/
 //=======================================================================================
+
+/*PRODUCTS*/
+//=======================================================================================
+.products {
+   margin-bottom: rem(44);
+   &__container {
+   }
+
+   &__tittle {
+   }
+
+   &__items {
+      display: grid;
+      @include adaptiveValueREM("gap", 32, 15);
+      grid-template: auto / repeat(4, minmax(285px, 1fr));
+      text-align: center;
+      @media (max-width: em(1270)) {
+         grid-template: auto auto / repeat(2, minmax(285px, 1fr));
+      }
+      @media (max-width: $mobile) {
+         grid-template: repeat(4, auto) / minmax(285px, 1fr);
+      }
+   }
+
+   &__item {
+   }
+
+   &__footer {
+   }
+
+   &__footer--link {
+   }
+}
+.item-product {
+   &__img {
+   }
+
+   &__description {
+   }
+
+   &__label {
+   }
+
+   &__hover {
+   }
+}
+.description-product {
+   &__tittle {
+   }
+
+   &__text {
+   }
+
+   &__price {
+   }
+}
+.price-product {
+   &__current {
+   }
+
+   &__old {
+   }
+}
+.label-product {
+   &__sale {
+   }
+
+   &__new {
+   }
+}
+.hover-product {
+   &__actions {
+   }
+
+   &__btn {
+   }
+
+   &__share {
+   }
+
+   &__like {
+   }
+
+   &__look {
+   }
+}
+/*PRODUCTS*/
+//=======================================================================================

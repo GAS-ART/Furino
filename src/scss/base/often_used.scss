@@ -28,3 +28,12 @@
    opacity: 0;
    visibility: hidden;
 }
+
+._tittle {
+   color: $mainColor;
+   font-weight: bold;
+   @include adaptiveValueREM("font-size", 40, 24);
+   line-height: 1.2;
+   text-align: center;
+   margin-bottom: em(32, 40);
+}
