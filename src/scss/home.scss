@@ -418,6 +418,11 @@
 .products {
    margin-bottom: rem(44);
    &__container {
+      @media (max-width: $mobile) {
+         display: flex;
+         flex-direction: column;
+         align-items: center;
+      }
    }
 
    &__tittle {
@@ -425,15 +430,15 @@
 
    &__items {
       display: grid;
-      @include adaptiveValueREM("gap", 32, 15);
-      @include adaptiveValueREM("margin-bottom", 32, 15);
+      @include adaptiveValueREM("gap", 32, 20);
+      @include adaptiveValueREM("margin-bottom", 32, 20);
       grid-template: auto / repeat(4, minmax(285px, 1fr));
       text-align: center;
       @media (max-width: em(1270)) {
          grid-template: auto auto / repeat(2, minmax(285px, 1fr));
       }
       @media (max-width: $mobile) {
-         grid-template: repeat(4, auto) / minmax(285px, 1fr);
+         grid-template: repeat(4, auto) / minmax(285px, 400px);
       }
    }
 
@@ -445,12 +450,40 @@
             visibility: visible;
          }
       }
+      @media (max-width: em(1270)) {
+         &:not(:nth-last-child(-n + 2)) {
+            margin: 0 0 20px 0;
+         }
+      }
+      @media (max-width: $mobile) {
+         &:not(:last-child) {
+            margin: 0 0 25px 0;
+         }
+      }
    }
 
    &__footer {
+      display: flex;
+      align-items: center;
+      justify-content: center;
    }
 
    &__footer--link {
+      padding: rem(12) rem(82);
+      color: $orangeColor;
+      font-weight: 600;
+      line-height: 1.5;
+      border: 1px solid #e89f71;
+      transition: all 0.3s ease 0s;
+      @media (any-hover: hover) {
+         &:hover {
+            background-color: $orangeColor;
+            color: #fff;
+         }
+      }
+   }
+   @media (max-width: $tablet) {
+      font-size: 22px;
    }
 }
 .item-product {
@@ -492,7 +525,10 @@
    &__tittle {
       color: $mainColor;
       font-weight: 600;
-      font-size: 24;
+      font-size: 24px;
+      @media (max-width: $tablet) {
+         font-size: 22px;
+      }
       line-height: 1.2;
       margin: 0 0 rem(8) 0;
    }
@@ -514,9 +550,12 @@
    &__current {
       color: $mainColor;
       font-weight: 600;
-      font-size: 20;
+      font-size: 20px;
       line-height: 1.5;
       margin: 0 rem(16) 0 0;
+      @media (max-width: $tablet) {
+         font-size: 18px;
+      }
    }
 
    &__old {
@@ -524,6 +563,9 @@
       font-weight: 500;
       line-height: 1.5;
       text-decoration: line-through;
+      @media (max-width: $tablet) {
+         font-size: 16px;
+      }
    }
 }
 .label-product {
@@ -533,6 +575,9 @@
    display: flex;
    flex-direction: column;
    align-items: center;
+   color: #fff;
+   line-height: 1.5;
+   font-weight: 500;
    &__sale {
       width: rem(48);
       height: rem(48);
@@ -546,6 +591,10 @@
          display: flex;
          align-items: center;
          justify-content: center;
+      }
+      @media (max-width: $tablet) {
+         width: rem(57);
+         height: rem(57);
       }
    }
 
@@ -562,6 +611,10 @@
          display: flex;
          align-items: center;
          justify-content: center;
+      }
+      @media (max-width: $tablet) {
+         width: rem(57);
+         height: rem(57);
       }
    }
 }
@@ -583,8 +636,10 @@
       font-weight: 600;
       line-height: 1.5;
       padding: rem(12) rem(58);
+      font-size: 20px;
 
       @media (any-hover: hover) {
+         font-size: 16px;
          transition: all 0.5s ease 0s;
          color: $orangeColor;
          margin: 0 0 rem(24) 0;
@@ -598,7 +653,11 @@
    }
    &__social {
       font-weight: 600;
+      color: $orangeColor;
+      font-size: 18px;
+      margin: 15px 0 0 0;
       @media (any-hover: hover) {
+         font-size: 16px;
          width: 100%;
          color: #ffffff;
       }
