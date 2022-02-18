@@ -426,6 +426,7 @@
    &__items {
       display: grid;
       @include adaptiveValueREM("gap", 32, 15);
+      @include adaptiveValueREM("margin-bottom", 32, 15);
       grid-template: auto / repeat(4, minmax(285px, 1fr));
       text-align: center;
       @media (max-width: em(1270)) {
@@ -437,6 +438,13 @@
    }
 
    &__item {
+      position: relative;
+      &:hover {
+         .item-product__hover {
+            opacity: 1;
+            visibility: visible;
+         }
+      }
    }
 
    &__footer {
@@ -447,55 +455,202 @@
 }
 .item-product {
    &__img {
+      width: 100%;
+      img {
+         width: 100%;
+      }
    }
 
    &__description {
+      @include adaptiveValueREM("margin-bottom", 30, 15);
+      margin-left: rem(16);
+      margin-top: rem(16);
+      text-align: left;
    }
 
    &__label {
    }
 
    &__hover {
+      @media (any-hover: hover) {
+         opacity: 0;
+         visibility: hidden;
+         position: absolute;
+         transition: all 0.7s ease 0s;
+         top: 0;
+         left: 0;
+         width: 100%;
+         height: 100%;
+         background-color: rgb(58, 58, 58, 0.72);
+         display: grid;
+         grid-template-rows: 1fr auto;
+         justify-content: center;
+      }
    }
 }
 .description-product {
    &__tittle {
+      color: $mainColor;
+      font-weight: 600;
+      font-size: 24;
+      line-height: 1.2;
+      margin: 0 0 rem(8) 0;
    }
 
    &__text {
+      color: $grayColor;
+      font-weight: 500;
+      line-height: 1.5;
+      margin: 0 0 rem(8) 0;
    }
 
    &__price {
+      display: flex;
+      flex-wrap: wrap;
+      @include adaptiveValueREM("margin-bottom", 30, 15);
    }
 }
 .price-product {
    &__current {
+      color: $mainColor;
+      font-weight: 600;
+      font-size: 20;
+      line-height: 1.5;
+      margin: 0 rem(16) 0 0;
    }
 
    &__old {
+      color: #b0b0b0;
+      font-weight: 500;
+      line-height: 1.5;
+      text-decoration: line-through;
    }
 }
 .label-product {
+   position: absolute;
+   right: 24px;
+   top: 24px;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
    &__sale {
+      width: rem(48);
+      height: rem(48);
+      background-color: #e97171;
+      border-radius: 50%;
+      &:not(:last-child) {
+         margin-bottom: 15px;
+      }
+      display: none;
+      &.active {
+         display: flex;
+         align-items: center;
+         justify-content: center;
+      }
    }
 
    &__new {
+      width: rem(48);
+      height: rem(48);
+      background-color: #2ec1ac;
+      border-radius: 50%;
+      &:not(:last-child) {
+         margin-bottom: 15px;
+      }
+      display: none;
+      &.active {
+         display: flex;
+         align-items: center;
+         justify-content: center;
+      }
    }
 }
 .hover-product {
    &__actions {
+      @media (any-hover: hover) {
+         display: flex;
+         flex-direction: column;
+         justify-content: center;
+         align-items: center;
+         width: rem(202);
+      }
    }
 
    &__btn {
-   }
+      color: $mainColor;
+      background-color: $orangeColor;
+      margin: rem(20) 0 rem(12) 0;
+      font-weight: 600;
+      line-height: 1.5;
+      padding: rem(12) rem(58);
 
+      @media (any-hover: hover) {
+         transition: all 0.5s ease 0s;
+         color: $orangeColor;
+         margin: 0 0 rem(24) 0;
+         background-color: #ffffff;
+         &:hover {
+            color: #fff;
+            background-color: $orangeColor;
+         }
+      }
+      cursor: pointer;
+   }
+   &__social {
+      font-weight: 600;
+      @media (any-hover: hover) {
+         width: 100%;
+         color: #ffffff;
+      }
+      display: flex;
+      justify-content: space-around;
+   }
    &__share {
+      display: flex;
+      &:before {
+         margin: 0 rem(9) 0 0;
+      }
+      @media (any-hover: hover) {
+         transition: all 0.5s ease 0s;
+         &:hover {
+            color: $orangeColor;
+         }
+      }
    }
 
    &__like {
+      display: flex;
+      &:before {
+         margin: 0 rem(9) 0 0;
+      }
+      @media (any-hover: hover) {
+         transition: all 0.5s ease 0s;
+         &:hover {
+            color: $orangeColor;
+         }
+      }
    }
 
    &__look {
+      display: none;
+      @media (any-hover: hover) {
+         transition: all 0.5s ease 0s;
+         display: flex;
+         justify-content: space-around;
+         background-color: #fff;
+         width: 100%;
+         padding: rem(8) 0;
+         color: $orangeColor;
+         font-style: italic;
+         cursor: pointer;
+         p {
+            text-decoration: underline;
+         }
+         &:hover {
+            color: #fff;
+            background-color: $orangeColor;
+         }
+      }
    }
 }
 /*PRODUCTS*/
