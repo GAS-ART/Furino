@@ -82,6 +82,13 @@ window.onload = function () {
 
          e.preventDefault();
       }
+      //Кнопка + в корзине
+      if (e.target.classList.contains('cart-list__btn-plus')) {
+         let productId = e.target.closest('.cart-list__item').dataset.cartId;
+         let productBtn = e.target;
+         updateCart(productBtn, productId);
+         e.preventDefault();
+      }
    }
 
    //Акардеон для футера
@@ -116,8 +123,6 @@ window.onload = function () {
       }
 
    }
-
-
 
    const headerObserver = new IntersectionObserver(watchHeader);
    headerObserver.observe(headerElement);
@@ -268,8 +273,7 @@ window.onload = function () {
             let price = result.products.find(product => product.id == item.dataset.cartId).price;
             price = price.slice(3).replace('.', '').trim();
             currentPrices.push(price);
-         })
-         ///        console.log(currentPrices);
+         });
          makeTotalPrice(cartList, currentPrices);
       } else {
          alert('Ошибка загрузки цени товара');
