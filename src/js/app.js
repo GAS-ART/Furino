@@ -191,16 +191,9 @@ window.onload = function () {
 
    }
    // Добавление товара в корзину
-   /* const cartIconBtn = document.querySelector('.art-header__icon');
-    cartIconBtn.addEventListener('click', function (e) {
-       e.preventDefault();
-       // cart.classList.toggle('active');
-    })*/
    const cart = document.querySelector('.cart-header');
 
    function addToCart(productBtn, productId) {
-
-
       if (!productBtn.classList.contains('_hold')) {
          productBtn.classList.add('_hold');
          productBtn.classList.add('_fly');
@@ -247,7 +240,6 @@ window.onload = function () {
       const cartIcon = document.querySelector('.cart-header__icon');
       const cartQuantity = cartIcon.querySelector('span');
       const cartProduct = document.querySelector(`[data-cart-id="${productId}"]`);
-      const cartList = document.querySelector('.cart-header__header-list');
 
       if (productAdd) {
          if (cartQuantity) {
@@ -255,42 +247,72 @@ window.onload = function () {
          } else {
             cartIcon.insertAdjacentHTML('beforeend', `<span>1</span>`);
          }
-         const product = document.querySelector(`[data-id="${productId}"]`);
-         const cartProductImg = product.querySelector('.item-product__img').innerHTML;
-         const cartPproductName = product.querySelector('.description-product__tittle').innerHTML;
+         getPrice(cartProduct, productId, productBtn);
+      }
+   }
+   async function getPrice(cartProduct, productId, productBtn) {
+      const file = "json/products.json";
+      let responce = await fetch(file, {
+         method: 'GET',
+      });
+      if (responce.ok) {
+         let result = await responce.json();
+         let cartProductPrice = result.products.find(item => item.id == productId).price;
+         cartProductPrice = cartProductPrice.slice(3).replace('.', '');
+         const cartList = document.querySelector('.cart-header__header-list');
+         addPriceToCart(+cartProductPrice, cartProduct, productId, productBtn, cartList);
 
-         async function getPrice() {
-            const file = "json/products.json";
-            let responce = await fetch(file, {
-               method: 'GET',
-            });
-            if (responce.ok) {
-               let result = await responce.json();
-               let cartProductPrice = result.products.find(item => item.id == productId).price;
-               cartProductPrice = cartProductPrice.slice(3).replace('.', '');
-               addPriceToCart(+cartProductPrice);
-            } else {
-               alert('Ошибка загрузки цени товара');
-            }
+         let productsInCart = cartList.querySelectorAll('.cart-list__item');
+         let currentPrices = [];
+         productsInCart.forEach((item) => {
+            let price = result.products.find(product => product.id == item.dataset.cartId).price;
+            price = price.slice(3).replace('.', '').trim();
+            currentPrices.push(price);
+         })
+         ///        console.log(currentPrices);
+         makeTotalPrice(cartList, currentPrices);
+      } else {
+         alert('Ошибка загрузки цени товара');
+      }
+   }
+
+   function addPriceToCart(cartProductPrice, cartProduct, productId, productBtn, cartList) {
+      const product = document.querySelector(`[data-id="${productId}"]`);
+      const cartProductImg = product.querySelector('.item-product__img').innerHTML;
+      const cartPproductName = product.querySelector('.description-product__tittle').innerHTML;
+      if (!cartProduct) {
+         const cartProductContent = `
+<a href="#" class="cart-list__img">${cartProductImg}</a>
+<div class="cart-list__body">
+   <a href="#" class="cart-list__name">${cartPproductName}</a>
+   <div class="cart-list__quantity"><div class="cart-list__price">${cartProductPrice.toLocaleString('de-DE', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0, })}</div><button class="cart-list__btn-plus">+</button><span> 1 </span><button class="cart-list__btn-minus">-</button></div>
+   <a href="#" class="cart-list__delete">Delete</a>
+</div>`;
+         cartList.insertAdjacentHTML('beforeend', `<li data-cart-id="${productId}" class="cart-list__item" ">${cartProductContent}</li>`);
+      } else {
+         cartProduct.querySelector('.cart-list__quantity span').innerHTML++;
+         let sum = +cartProductPrice * +cartProduct.querySelector('.cart-list__quantity span').innerHTML;
+         cartProduct.querySelector('.cart-list__price').innerHTML = sum.toLocaleString('de-DE', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 });
+      }
+      productBtn.classList.remove('_hold');
+   }
+
+   function makeTotalPrice(cartList, currentPrices) {
+      let totalPrice = 0;
+      for (let i = 0; i < currentPrices.length; i++) {
+         let totalPriceItem = +currentPrices[i] * +cartList.querySelectorAll('.cart-list__quantity span')[i].innerHTML;
+         totalPrice += totalPriceItem;
+      }
+      if (!totalPrice) {
+         if (document.querySelector('.cart-header__total-price')) {
+            document.querySelector('.cart-header__total-price').remove();
          }
-         getPrice();
-         function addPriceToCart(cartProductPrice) {
-            if (!cartProduct) {
-               const cartProductContent = `
-            <a href="#" class="cart-list__img">${cartProductImg}</a>
-            <div class="cart-list__body">
-               <a href="#" class="cart-list__name">${cartPproductName}</a>
-               <div class="cart-list__quantity"><div class="cart-list__price">${cartProductPrice.toLocaleString('de-DE', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 })}</div><button class="cart-list__btn-plus">+</button><span> 1 </span><button class="cart-list__btn-minus">-</button></div>
-               <a href="#" class="cart-list__delete">Delete</a>
-            </div>`;
-               cartList.insertAdjacentHTML('beforeend', `<li data-cart-id="${productId}" class="cart-list__item" ">${cartProductContent}</li>`);
-            } else {
-               cartProduct.querySelector('.cart-list__quantity span').innerHTML++;
-               let sum = +cartProductPrice * +cartProduct.querySelector('.cart-list__quantity span').innerHTML;
-               cartProduct.querySelector('.cart-list__price').innerHTML = sum.toLocaleString('de-DE', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 });
-            }
+         cartList.insertAdjacentHTML('beforeend', `<div class="cart-header__total-price">Total: <span>${totalPrice.toLocaleString('de-DE', { style: 'currency', currency: 'EUR', currencyDisplay: "name", maximumFractionDigits: 0 })}</span></div>`);
+      } else {
+         if (document.querySelector('.cart-header__total-price')) {
+            document.querySelector('.cart-header__total-price').remove();
          }
-         productBtn.classList.remove('_hold');
+         cartList.insertAdjacentHTML('beforeend', `<div class="cart-header__total-price">Total: <span>${totalPrice.toLocaleString('de-DE', { style: 'currency', currency: 'EUR', currencyDisplay: "name", maximumFractionDigits: 0 })}</span></div>`);
       }
    }
 }
