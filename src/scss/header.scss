@@ -336,8 +336,26 @@
 		z-index: 5;
 		@media (any-hover: hover) {
 			&:hover {
-				color: $orangeColor;
+				.cart-header__icon{
+					&:before {
+						color: $orangeColor;
+					}
+				}
+				.cart-list{
+					opacity: 1;
+					visibility: visible;
+					transform: translate(-50%, 15px);
+				}
 			}
+		}
+		@media (any-pointer: coarse) {
+		&:focus{
+			.cart-list{
+				opacity: 1;
+				visibility: visible;
+				transform: translate(-50%, 15px);
+			}
+		}
 		}
 	}
 
@@ -356,11 +374,98 @@
 	}
 }
 
-.cart {
+.cart-header {
+	&__icon{
+		position: relative;
+		display: inline-block;
+		position: relative;
+		span{
+			position: absolute;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			top: -5px;
+			right: -5px;
+			background-color: $orangeColor;
+			width: 15px;
+			height: 15px;
+			border-radius: 50%;
+			font-size: rem(11);
+			color: #fff;
+		}
+	}
 	&__header-list {
 	}
 
 	&__header-item {
+	}
+}
+.cart-list{
+	position: absolute;
+	width: 250px;
+	background-color: rgb(247, 212, 191);
+	padding: 20px 0;
+//opacity: 0;
+//visibility: hidden;
+	transform: translate(-50%, 30px);
+	transition: all 0.5s ease 0s;
+	&__item{
+		display: flex;
+		align-items: center;
+		margin-left: 10px;
+		&:not(:last-child){
+			margin-bottom: 20px;
+		}
+	}
+	&__img{
+		position: relative;
+	//	padding-bottom: 50%;
+	width: 100px;
+	height: 70px;
+		img {
+		position: relative;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		object-fit: fill;
+		}
+	}
+	&__body{
+		position: relative;
+		text-align: end;
+		width: 100%;
+		margin-right: 10px;
+	}
+	&__name{
+		font-size: 20px;
+		display: block;
+		margin-bottom: 10px;
+	}
+	&__quantity{
+		font-size: 14px;
+		span{
+			margin: 0 5px;
+		}
+	}
+	&__price{
+		display: inline-block;
+		font-size: 14px;
+		color: #262f56;
+		margin-right: 10px;
+	}
+	&__delete{
+		color: red;
+		font-size: 12px;
+		font-weight: 500;
+		letter-spacing: 1.5px;
+	}
+	&__btn-plus, &__btn-minus{
+		background-color: $orangeColor;
+		border-radius: 50%;
+		width: 20px;
+		height: 20px;
+		text-align: center;
 	}
 }
 

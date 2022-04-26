@@ -26,6 +26,7 @@ import { minjs } from "./gulp/tasks/minjs.js";
 import { images } from "./gulp/tasks/images.js";
 import { otfToTtf, ttfToWoff, fontsStyle } from "./gulp/tasks/fonts.js";
 import { svgSpriteTask } from "./gulp/tasks/svg-sprite.js";
+import { json } from "./gulp/tasks/json.js";
 
 //Наблюдатель за изменениями в файлах
 function watcher() {
@@ -34,11 +35,12 @@ function watcher() {
    gulp.watch(path.wathc.scss, scss);
    gulp.watch(path.wathc.js, js);
    gulp.watch(path.wathc.images, images);
+   gulp.watch(path.wathc.json, json);
 }
 
 
 
-const mainTasks = gulp.parallel(copy, html, scss, js, images)
+const mainTasks = gulp.parallel(copy, html, scss, js, images, json);
 
 //Построение сценариев выполнения задач
 const dev = gulp.series(mainTasks, gulp.parallel(watcher, server));

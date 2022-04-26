@@ -543,6 +543,7 @@
    &__price {
       display: flex;
       flex-wrap: wrap;
+      align-items: center;
       @include adaptiveValueREM("margin-bottom", 30, 15);
    }
 }
@@ -563,6 +564,7 @@
       font-weight: 500;
       line-height: 1.5;
       text-decoration: line-through;
+      margin-left: auto;
       @media (max-width: $tablet) {
          font-size: 16px;
       }
@@ -712,5 +714,14 @@
       }
    }
 }
+// ADD TO CART
+._fly{
+   position: fixed;
+   opacity: 1;
+   z-index: 100;
+   transition: all 1s ease 0s;
+}
+// ADD TO CART
 /*PRODUCTS*/
 //=======================================================================================
+

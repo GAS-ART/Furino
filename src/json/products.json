@@ -1,0 +1,203 @@
+{
+   "products": [
+      {
+         "id": "1",
+         "name": "Syltherine",
+         "description": "Stylish cafe chair",
+         "price": "EUR 2.500",
+         "oldPrice": "EUR 3.500",
+         "image": "syltherine",
+         "label": [
+            {
+               "type": "sale",
+               "value": "-30%"
+            }
+         ],
+         "shareUrl": "#",
+         "likeUrl": "#",
+         "linkUrl": "#"
+      },
+      {
+         "id": "2",
+         "name": "Leviosa",
+         "description": "Stylish cafe chair",
+         "price": "EUR 2.500",
+         "oldPrice": "",
+         "image": "leviosa",
+         "label": [
+            {
+               "type": "sale",
+               "value": "-50%"
+            }
+         ],
+         "shareUrl": "#",
+         "likeUrl": "#",
+         "linkUrl": "#"
+      },
+      {
+         "id": "3",
+         "name": "Lolito",
+         "description": "Luxury big sofa",
+         "price": "EUR 7.000",
+         "oldPrice": "EUR 14.000",
+         "image": "lolito",
+         "label": [
+            {
+               "type": "sale",
+               "value": "-50%"
+            }
+         ],
+         "shareUrl": "#",
+         "likeUrl": "#",
+         "linkUrl": "#"
+      },
+      {
+         "id": "4",
+         "name": "Respira",
+         "description": "Minimalist fan",
+         "price": "EUR 500",
+         "oldPrice": "",
+         "image": "potty",
+         "label": [
+            {
+               "type": "new",
+               "value": "New"
+            }
+         ],
+         "shareUrl": "#",
+         "likeUrl": "#",
+         "linkUrl": "#"
+      },
+      {
+         "id": "5",
+         "name": "Grifo",
+         "description": "Night lamp",
+         "price": "EUR 1.500",
+         "oldPrice": "",
+         "image": "grifo",
+         "label": "",
+         "shareUrl": "#",
+         "likeUrl": "#",
+         "linkUrl": "#"
+      },
+      {
+         "id": "6",
+         "name": "Muggo",
+         "description": "Small mug",
+         "price": "EUR 150",
+         "oldPrice": "",
+         "image": "muggo",
+         "label": [
+            {
+               "type": "new",
+               "value": "New"
+            }
+         ],
+         "shareUrl": "#",
+         "likeUrl": "#",
+         "linkUrl": "#"
+      },
+      {
+         "id": "7",
+         "name": "Pingky",
+         "description": "Cute bed set",
+         "price": "EUR 7.000",
+         "oldPrice": "EUR 14.000",
+         "image": "pingky",
+         "label": [
+            {
+               "type": "sale",
+               "value": "-50%"
+            }
+         ],
+         "shareUrl": "#",
+         "likeUrl": "#",
+         "linkUrl": "#"
+      },
+      {
+         "id": "8",
+         "name": "potty",
+         "description": "Minimalist flower pot",
+         "price": "EUR 500",
+         "oldPrice": "",
+         "image": "potty",
+         "label": [
+            {
+               "type": "new",
+               "value": "New"
+            }
+         ],
+         "shareUrl": "#",
+         "likeUrl": "#",
+         "linkUrl": "#"
+      },
+      {
+         "id": "9",
+         "name": "Leviosa",
+         "description": "Stylish cafe chair",
+         "price": "EUR 2.500",
+         "oldPrice": "",
+         "image": "leviosa",
+         "label": [
+            {
+               "type": "sale",
+               "value": "-50%"
+            }
+         ],
+         "shareUrl": "#",
+         "likeUrl": "#",
+         "linkUrl": "#"
+      },
+      {
+         "id": "10",
+         "name": "Muggo",
+         "description": "Small mug",
+         "price": "EUR 150",
+         "oldPrice": "",
+         "image": "muggo",
+         "label": [
+            {
+               "type": "new",
+               "value": "New"
+            }
+         ],
+         "shareUrl": "#",
+         "likeUrl": "#",
+         "linkUrl": "#"
+      },
+      {
+         "id": "11",
+         "name": "Respira",
+         "description": "Minimalist fan",
+         "price": "EUR 500",
+         "oldPrice": "",
+         "image": "potty",
+         "label": [
+            {
+               "type": "new",
+               "value": "New"
+            }
+         ],
+         "shareUrl": "#",
+         "likeUrl": "#",
+         "linkUrl": "#"
+      },
+      {
+         "id": "12",
+         "name": "potty",
+         "description": "Minimalist flower pot",
+         "price": "EUR 500",
+         "oldPrice": "",
+         "image": "potty",
+         "label": [
+            {
+               "type": "new",
+               "value": "New"
+            }
+         ],
+         "shareUrl": "#",
+         "likeUrl": "#",
+         "linkUrl": "#"
+      }
+   ]
+}

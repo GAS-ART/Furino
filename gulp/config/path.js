@@ -12,6 +12,7 @@ export const path = {
       css: `${buildFolder}/css/`,
       images: `${buildFolder}/img/`,
       fonts: `${buildFolder}/fonts/`,
+      json: `${buildFolder}/json/`,
    },
    src: {
       js: `${srcFolder}/js/app.js`,
@@ -22,6 +23,7 @@ export const path = {
       html: `${srcFolder}/*.html`,
       fonts: `${srcFolder}/fonts/*.ttf`,
       svgicons: `${srcFolder}/svgicons/*.svg`,
+      json: `${srcFolder}/json/*.json`,
    },
    wathc: {
       js: `${srcFolder}/js/**/*.js`,
@@ -29,6 +31,7 @@ export const path = {
       scss: `${srcFolder}/scss/**/*.scss`,
       html: `${srcFolder}/**/*.html`,
       images: `${srcFolder}/img/**/*.{jpg,jpeg,png,svg,gif,ico,webp,ico,webmanifest}`,
+      json: `${srcFolder}/json/*.json`,
    },
    clean: buildFolder,
    buildFolder: buildFolder,
