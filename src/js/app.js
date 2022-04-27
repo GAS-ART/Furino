@@ -87,9 +87,24 @@ window.onload = function () {
          let productId = e.target.closest('.cart-list__item').dataset.cartId;
          let productBtn = e.target;
          updateCart(productBtn, productId);
+         // e.preventDefault();
+      }
+      //Кнопка - в корзине
+      if (e.target.classList.contains('cart-list__btn-minus')) {
+         let productId = e.target.closest('.cart-list__item').dataset.cartId;
+         let productBtn = e.target;
+         updateCart(productBtn, productId, false);
+         // e.preventDefault();
+      }
+      //Кнопка удаления товара из корзины
+      if (e.target.classList.contains('cart-list__delete')) {
+         let productId = e.target.closest('.cart-list__item').dataset.cartId;
+         let productBtn = e.target;
+         deleteFromCart(productBtn, productId);
          e.preventDefault();
       }
    }
+
 
    //Акардеон для футера
    function windowSize() {
@@ -253,9 +268,16 @@ window.onload = function () {
             cartIcon.insertAdjacentHTML('beforeend', `<span>1</span>`);
          }
          getPrice(cartProduct, productId, productBtn);
+      } else {
+         if (!(cartQuantity.innerHTML == 1 || 0)) {
+            cartQuantity.innerHTML = --cartQuantity.innerHTML;
+         } else {
+            cartQuantity.remove();
+         }
+         getPrice(cartProduct, productId, productBtn, false);
       }
    }
-   async function getPrice(cartProduct, productId, productBtn) {
+   async function getPrice(cartProduct, productId, productBtn, productAdd = true) {
       const file = "json/products.json";
       let responce = await fetch(file, {
          method: 'GET',
@@ -265,8 +287,11 @@ window.onload = function () {
          let cartProductPrice = result.products.find(item => item.id == productId).price;
          cartProductPrice = cartProductPrice.slice(3).replace('.', '');
          const cartList = document.querySelector('.cart-header__header-list');
-         addPriceToCart(+cartProductPrice, cartProduct, productId, productBtn, cartList);
-
+         if (productAdd) {
+            addPriceToCart(+cartProductPrice, cartProduct, productId, productBtn, cartList);
+         } else {
+            removePriceFromCart(+cartProductPrice, cartProduct, productBtn, cartList);
+         }
          let productsInCart = cartList.querySelectorAll('.cart-list__item');
          let currentPrices = [];
          productsInCart.forEach((item) => {
@@ -301,6 +326,31 @@ window.onload = function () {
       productBtn.classList.remove('_hold');
    }
 
+   function removePriceFromCart(cartProductPrice, cartProduct, productBtn, cartList) {
+      cartProduct.querySelector('.cart-list__quantity span').innerHTML--;
+      let sum = +cartProductPrice * +cartProduct.querySelector('.cart-list__quantity span').innerHTML;
+      cartProduct.querySelector('.cart-list__price').innerHTML = sum.toLocaleString('de-DE', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 });
+      if (cartProduct.querySelector('.cart-list__quantity span').innerHTML == 0) {
+         cartList.removeChild(cartProduct);
+      }
+      productBtn.classList.remove('_hold');
+   }
+
+   function deleteFromCart(productBtn, productId) {
+      const currentProduct = productBtn.closest('.cart-list__item');
+      const currentProductQuantityBlock = currentProduct.querySelector('.cart-list__quantity span');
+      const allProductsQuantityBlock = document.querySelector('.cart-header__icon span');
+
+      let currentProductQuantity = currentProductQuantityBlock.innerHTML;
+      let allProductsQuantity = allProductsQuantityBlock.innerHTML;
+      let сalculationQuantityProducts = allProductsQuantity - currentProductQuantity;
+
+      currentProductQuantityBlock.innerHTML = 1;
+      allProductsQuantityBlock.innerHTML = сalculationQuantityProducts + 1;
+
+      updateCart(productBtn, productId, false);
+   }
+
    function makeTotalPrice(cartList, currentPrices) {
       let totalPrice = 0;
       for (let i = 0; i < currentPrices.length; i++) {
@@ -312,6 +362,9 @@ window.onload = function () {
             document.querySelector('.cart-header__total-price').remove();
          }
          cartList.insertAdjacentHTML('beforeend', `<div class="cart-header__total-price">Total: <span>${totalPrice.toLocaleString('de-DE', { style: 'currency', currency: 'EUR', currencyDisplay: "name", maximumFractionDigits: 0 })}</span></div>`);
+         if (cartList.querySelectorAll('.cart-list__item').length == 0) {
+            document.querySelector('.cart-header__total-price').remove();
+         }
       } else {
          if (document.querySelector('.cart-header__total-price')) {
             document.querySelector('.cart-header__total-price').remove();
