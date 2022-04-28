@@ -103,8 +103,12 @@ window.onload = function () {
          deleteFromCart(productBtn, productId);
          e.preventDefault();
       }
+      //Кнопка заказа товара
+      if (e.target.classList.contains('cart-list__make-order-btn')) {
+         let productBtn = e.target;
+         makeOrder(productBtn);
+      }
    }
-
 
    //Акардеон для футера
    function windowSize() {
@@ -210,6 +214,8 @@ window.onload = function () {
       });
 
    }
+
+   /*===================================================КОРЗИНА===================================================*/
    // Добавление товара в корзину
    const cart = document.querySelector('.cart-header');
 
@@ -277,13 +283,64 @@ window.onload = function () {
          getPrice(cartProduct, productId, productBtn, false);
       }
    }
-   async function getPrice(cartProduct, productId, productBtn, productAdd = true) {
+
+   function makeOrder(productBtn) {
+      const bodyHtml = document.querySelector('body');
+      const cartBody = productBtn.closest('.cart-list');
+      const cartProducts = cartBody.querySelectorAll('.cart-list__item');
+      const cartPopup = document.getElementById('cartPopup');
+      const popupTable = cartPopup.querySelector('.popup__table');
+      let productsId = [];
+      cartProducts.forEach((item) => {
+         productsId.push(item.dataset.cartId);
+      })
+      let totalPrice = 0;
+      let prices = getPrice(cartProducts, productsId, productBtn, true, true);
+      prices.then((data) => {
+         for (let i = 0; i < data.length; i++) {
+            let price = +data[i];
+            const cartProductImg = cartProducts[i].querySelector('.cart-list__img picture').innerHTML;
+            let productName = cartProducts[i].querySelector('.cart-list__name').innerHTML;
+            let productQuantity = cartProducts[i].querySelector('.cart-list__quantity span').innerHTML;
+            let totalProductPrice = price * productQuantity;
+            totalPrice += +totalProductPrice;
+            popupTable.insertAdjacentHTML('beforeend', `<div class="ordered-table-popup__item">
+            <div class="ordered-table-popup__img"><div class="ordered-table-popup__name">${productName}</div>${cartProductImg}</div>
+            <div class="ordered-table-popup__price">${price.toLocaleString('de-DE', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0, })}</div>
+            <div class="ordered-table-popup__quantity">${productQuantity}</div>
+            <div class="ordered-table-popup__total-product-price">${totalProductPrice}</div>
+         </div>`);
+            if (i == data.length - 1) {
+               popupTable.insertAdjacentHTML('beforeend', `<div class="ordered-table-popup__total">Total: ${totalPrice.toLocaleString('de-DE', { style: 'currency', currency: 'EUR', currencyDisplay: 'name', maximumFractionDigits: 0, })}</div>`);
+            }
+            cartProducts[i].remove();
+         }
+      });
+      cartBody.querySelector('.cart-list__total-price').remove();
+      cartBody.querySelector('.cart-list__make-order').remove();
+      cartBody.previousElementSibling.querySelector('span').remove();
+      cartPopup.classList.add('open');
+      bodyHtml.classList.add('lock');
+   }
+
+   async function getPrice(cartProduct, productId, productBtn, productAdd = true, makeOrder = false) {
       const file = "json/products.json";
       let responce = await fetch(file, {
          method: 'GET',
       });
       if (responce.ok) {
          let result = await responce.json();
+         //Отправка данных о цене при подтверждении заказа
+         if (makeOrder) {
+            let prices = [];
+            productId.forEach((item) => {
+               let price = result.products.find((product) => product.id == item).price;
+               prices.push(price.slice(3).replace('.', '').trim());
+            })
+            return prices;
+         }
+
+         //Отправка данных о цене при добавлении / удалении товара в корзину
          let cartProductPrice = result.products.find(item => item.id == productId).price;
          cartProductPrice = cartProductPrice.slice(3).replace('.', '');
          const cartList = document.querySelector('.cart-header__header-list');
@@ -303,6 +360,7 @@ window.onload = function () {
       } else {
          alert('Ошибка загрузки цени товара');
       }
+
    }
 
    function addPriceToCart(cartProductPrice, cartProduct, productId, productBtn, cartList) {
@@ -311,7 +369,10 @@ window.onload = function () {
       const cartPproductName = product.querySelector('.description-product__tittle').innerHTML;
       if (!cartProduct) {
          const cartProductContent = `
-<a href="#" class="cart-list__img">${cartProductImg}</a>
+
+<a href="#" class="cart-list__img">${cartProductImg}<div class="cart-list__price-item">${cartProductPrice.toLocaleString('de-DE', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0, })}</div></a>
+
+
 <div class="cart-list__body">
    <a href="#" class="cart-list__name">${cartPproductName}</a>
    <div class="cart-list__quantity"><div class="cart-list__price">${cartProductPrice.toLocaleString('de-DE', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0, })}</div><button class="cart-list__btn-plus">+</button><span> 1 </span><button class="cart-list__btn-minus">-</button></div>
@@ -358,20 +419,24 @@ window.onload = function () {
          totalPrice += totalPriceItem;
       }
       if (!totalPrice) {
-         if (document.querySelector('.cart-header__total-price')) {
-            document.querySelector('.cart-header__total-price').remove();
+         if (document.querySelector('.cart-list__total-price')) {
+            document.querySelector('.cart-list__total-price').remove();
+            document.querySelector('.cart-list__make-order').remove();
          }
-         cartList.insertAdjacentHTML('beforeend', `<div class="cart-header__total-price">Total: <span>${totalPrice.toLocaleString('de-DE', { style: 'currency', currency: 'EUR', currencyDisplay: "name", maximumFractionDigits: 0 })}</span></div>`);
+         cartList.insertAdjacentHTML('beforeend', `<div class="cart-list__total-price">Total: <span>${totalPrice.toLocaleString('de-DE', { style: 'currency', currency: 'EUR', currencyDisplay: "name", maximumFractionDigits: 0 })}</span></div><div class="cart-list__make-order"><button class="cart-list__make-order-btn">Make order</button></div>`);
          if (cartList.querySelectorAll('.cart-list__item').length == 0) {
-            document.querySelector('.cart-header__total-price').remove();
+            document.querySelector('.cart-list__total-price').remove();
+            document.querySelector('.cart-list__make-order').remove();
          }
       } else {
-         if (document.querySelector('.cart-header__total-price')) {
-            document.querySelector('.cart-header__total-price').remove();
+         if (document.querySelector('.cart-list__total-price')) {
+            document.querySelector('.cart-list__total-price').remove();
+            document.querySelector('.cart-list__make-order').remove();
          }
-         cartList.insertAdjacentHTML('beforeend', `<div class="cart-header__total-price">Total: <span>${totalPrice.toLocaleString('de-DE', { style: 'currency', currency: 'EUR', currencyDisplay: "name", maximumFractionDigits: 0 })}</span></div>`);
+         cartList.insertAdjacentHTML('beforeend', `<div class="cart-list__total-price">Total: <span>${totalPrice.toLocaleString('de-DE', { style: 'currency', currency: 'EUR', currencyDisplay: "name", maximumFractionDigits: 0 })}</span></div><div class="cart-list__make-order"><button class="cart-list__make-order-btn">Make order</button></div>`);
       }
    }
+   /*===================================================КОРЗИНА===================================================*/
 }
 
 

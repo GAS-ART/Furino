@@ -122,3 +122,57 @@
    }
 }
 /*----POP-UP----*/
+
+
+/*----CART-POP-UP----*/
+
+.popup__title{
+   h5{
+      font-size: rem(18);
+      font-weight: 500;
+      color: #000000;
+      margin: 10px 0 20px 0;
+   }
+}
+.ordered-product-tittle{
+   display: flex;
+   width: 100%;
+  // justify-content:flex-start;
+   font-weight: 500;
+   font-style: italic;
+   margin-bottom: 15px;
+   &__name, &__price, &__quantity, &__total{
+     width: 25%;
+     text-align: center;
+   }
+}
+.ordered-table-popup{
+   max-height: 60vh;
+   overflow: auto;
+   width: 100%;
+   &__item{
+      display: flex;
+      align-items: center;
+      &:not(:last-child){
+         margin-bottom: 15px;
+      }
+   }
+   &__img, &__price, &__quantity, &__total-product-price{
+      width:25%;
+      text-align: center;
+   }
+   &__img{
+      img{
+         width: 70%;
+      }
+   }
+   &__total{
+      overflow: hidden;
+      text-align: right;
+      margin-right: 20px;
+      font-size: rem(20);
+      font-weight: 600;
+      
+   }
+}
+/*----CART-POP-UP----*/

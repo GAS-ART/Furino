@@ -414,7 +414,7 @@
 		align-items: center;
 		margin-left: 10px;
 		&:not(:last-child){
-			margin-bottom: 20px;
+			margin-bottom: 30px;
 		}
 	}
 	&__img{
@@ -448,6 +448,11 @@
 			margin: 0 5px;
 		}
 	}
+	&__price-item{
+		text-align: center;
+		font-size: 14px;
+		color: #262f56;
+	}
 	&__price{
 		display: inline-block;
 		font-size: 14px;
@@ -466,6 +471,28 @@
 		width: 20px;
 		height: 20px;
 		text-align: center;
+	}
+	&__total-price{
+		font-size: 18px;
+		font-weight: 500;
+		color: #262f56;
+		margin-right: 10px;
+		text-align: right;
+	}
+	&__make-order{
+		width: 100%;
+		text-align: center;
+		margin-top: 25px;
+	}
+	&__make-order-btn{
+		font-size: rem(20);
+		letter-spacing: 1.5px;
+		font-weight: 500;
+		text-align: center;
+		width: 70%;
+		height: 40px;
+		background-color: $orangeColor;
+		border-radius: 5px;
 	}
 }
 
