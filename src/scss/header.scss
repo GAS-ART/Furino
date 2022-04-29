@@ -334,7 +334,7 @@
 
 	&__cart {
 		z-index: 5;
-		@media (any-hover: hover) {
+	/*	@media (any-hover: hover) {
 			&:hover {
 				.cart-header__icon{
 					&:before {
@@ -356,7 +356,7 @@
 				transform: translate(-50%, 15px);
 			}
 		}
-		}
+		}*/
 	}
 
 	&__avatar {
@@ -402,13 +402,41 @@
 }
 .cart-list{
 	position: absolute;
-	width: 250px;
+	width: 280px;
 	background-color: rgb(247, 212, 191);
 	padding: 20px 0;
-//opacity: 0;
-//visibility: hidden;
-	transform: translate(-50%, 30px);
+	max-height: 70vh;
+	overflow-y: auto;
+	opacity: 0;
+	visibility: hidden;
+	transform: translate(-50%, 60px);
 	transition: all 0.5s ease 0s;
+	&.active{
+		opacity: 1;
+		visibility: visible;
+		transform: translate(-50%, 15px);
+	}
+	@media (max-width: em(1400)) {
+		transform: translate(0, 60px);
+		right: 0;
+		&.active{
+		transform: translate(0, 15px);
+		}
+	}
+	@media (max-width: $mobile) {
+		&.active{
+			transform: translate(0, 15px);
+			}
+	}
+	@media (max-width: $mobileSmall) {
+		width: 100%;
+		max-height: none;
+		height: 100vh;
+		padding-bottom: 80px;
+		&.active{
+		transform: translate(0, 10px);
+		}
+	}
 	&__item{
 		display: flex;
 		align-items: center;

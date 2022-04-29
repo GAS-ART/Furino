@@ -5,6 +5,7 @@
 import { isWebp } from './modules/functions.js';
 import { validate } from './modules/formValidate.js';
 import "./modules/sliders.js";
+import { popUp } from './modules/popup.js';
 
 
 isWebp();
@@ -216,13 +217,21 @@ window.onload = function () {
    }
 
    /*===================================================КОРЗИНА===================================================*/
-   // Добавление товара в корзину
    const cart = document.querySelector('.cart-header');
+   const cartBtn = document.querySelector('.cart-header__icon');
+   const cartList = document.querySelector('.cart-list');
 
+   //Открытие корзины
+   cartBtn.addEventListener('click', function (e) {
+      if (cartList.querySelectorAll('.cart-list__item').length > 0) {
+         cartList.classList.toggle('active');
+      }
+      e.preventDefault();
+   });
+   // Добавление товара в корзину
    function addToCart(productBtn, productId) {
       if (!productBtn.classList.contains('_hold')) {
          productBtn.classList.add('_hold');
-         productBtn.classList.add('_fly');
       }
       let product = document.querySelector(`.item-product[data-id="${productId}"]`);
       let productImg = product.querySelector('.item-product__img');
@@ -258,7 +267,6 @@ window.onload = function () {
       setTimeout(() => {
          productImgFly.remove();
          updateCart(productBtn, productId);
-         productBtn.classList.remove('_fly');
       }, 500);
    }
 
@@ -285,9 +293,13 @@ window.onload = function () {
    }
 
    function makeOrder(productBtn) {
-      const bodyHtml = document.querySelector('body');
-      const cartBody = productBtn.closest('.cart-list');
-      const cartProducts = cartBody.querySelectorAll('.cart-list__item');
+      if (document.querySelectorAll('.ordered-table-popup__item').length > 0) {
+         document.querySelectorAll('.ordered-table-popup__item').forEach((item) => {
+            item.remove();
+         });
+         document.querySelector('.ordered-table-popup__total').remove();;
+      }
+      const cartProducts = cartList.querySelectorAll('.cart-list__item');
       const cartPopup = document.getElementById('cartPopup');
       const popupTable = cartPopup.querySelector('.popup__table');
       let productsId = [];
@@ -316,11 +328,8 @@ window.onload = function () {
             cartProducts[i].remove();
          }
       });
-      cartBody.querySelector('.cart-list__total-price').remove();
-      cartBody.querySelector('.cart-list__make-order').remove();
-      cartBody.previousElementSibling.querySelector('span').remove();
-      cartPopup.classList.add('open');
-      bodyHtml.classList.add('lock');
+      removeCart();
+      popUp(productBtn.dataset.popupId);
    }
 
    async function getPrice(cartProduct, productId, productBtn, productAdd = true, makeOrder = false) {
@@ -343,7 +352,7 @@ window.onload = function () {
          //Отправка данных о цене при добавлении / удалении товара в корзину
          let cartProductPrice = result.products.find(item => item.id == productId).price;
          cartProductPrice = cartProductPrice.slice(3).replace('.', '');
-         const cartList = document.querySelector('.cart-header__header-list');
+         // const cartList = document.querySelector('.cart-header__header-list');
          if (productAdd) {
             addPriceToCart(+cartProductPrice, cartProduct, productId, productBtn, cartList);
          } else {
@@ -423,17 +432,24 @@ window.onload = function () {
             document.querySelector('.cart-list__total-price').remove();
             document.querySelector('.cart-list__make-order').remove();
          }
-         cartList.insertAdjacentHTML('beforeend', `<div class="cart-list__total-price">Total: <span>${totalPrice.toLocaleString('de-DE', { style: 'currency', currency: 'EUR', currencyDisplay: "name", maximumFractionDigits: 0 })}</span></div><div class="cart-list__make-order"><button class="cart-list__make-order-btn">Make order</button></div>`);
+         cartList.insertAdjacentHTML('beforeend', `<div class="cart-list__total-price">Total: <span>${totalPrice.toLocaleString('de-DE', { style: 'currency', currency: 'EUR', currencyDisplay: "name", maximumFractionDigits: 0 })}</span></div><div class="cart-list__make-order"><button data-popup-id="cartPopup" class="cart-list__make-order-btn">Make order</button></div>`);
          if (cartList.querySelectorAll('.cart-list__item').length == 0) {
-            document.querySelector('.cart-list__total-price').remove();
-            document.querySelector('.cart-list__make-order').remove();
+            removeCart();
          }
       } else {
          if (document.querySelector('.cart-list__total-price')) {
             document.querySelector('.cart-list__total-price').remove();
             document.querySelector('.cart-list__make-order').remove();
          }
-         cartList.insertAdjacentHTML('beforeend', `<div class="cart-list__total-price">Total: <span>${totalPrice.toLocaleString('de-DE', { style: 'currency', currency: 'EUR', currencyDisplay: "name", maximumFractionDigits: 0 })}</span></div><div class="cart-list__make-order"><button class="cart-list__make-order-btn">Make order</button></div>`);
+         cartList.insertAdjacentHTML('beforeend', `<div class="cart-list__total-price">Total: <span>${totalPrice.toLocaleString('de-DE', { style: 'currency', currency: 'EUR', currencyDisplay: "name", maximumFractionDigits: 0 })}</span></div><div class="cart-list__make-order"><button data-popup-id="cartPopup" class="cart-list__make-order-btn">Make order</button></div>`);
+      }
+   }
+   function removeCart() {
+      document.querySelector('.cart-list__total-price').remove();
+      document.querySelector('.cart-list__make-order').remove();
+      cartList.classList.remove('active');
+      if (cartList.previousElementSibling.querySelector('span')) {
+         cartList.previousElementSibling.querySelector('span').remove();
       }
    }
    /*===================================================КОРЗИНА===================================================*/

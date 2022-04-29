@@ -7,7 +7,7 @@ export function validate(form) {
       let fail = validateEmail(form.email.value)
       if (fail == false) {
          //   formSend(form);
-         popUp();
+         popUp((form.querySelector('.popup-link')).dataset.popupId);
          return false
       } else { return false }
    }
