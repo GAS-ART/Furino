@@ -725,3 +725,268 @@
 /*PRODUCTS*/
 //=======================================================================================
 
+/*ROOMS*/
+//=======================================================================================
+.rooms {
+   background-color: #FCF8F3;
+   overflow: hidden;
+   @include adaptiveValueREM("padding-bottom", 84, 40);
+   @media (max-width: $tablet) {
+   padding-top: 25px;
+   }
+   &__container {
+      display: flex;
+      @media (max-width: $tablet) {
+        flex-direction: column;
+      }
+   }
+
+   &__content {
+   position: relative;
+   flex: 0 1 percent(467, 1270);
+   display: flex;
+   flex-direction: column;
+   align-items: flex-start;
+   justify-content: center;
+   z-index: 5;
+   background-color: #FCF8F3;
+   &::before{
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100vh;
+      height: 100%;
+      transform: translate(-100%, 0px);
+      background-color: #FCF8F3;
+      z-index: 5;
+   }
+   @media (max-width: $tablet) {
+      flex:1 1 auto;
+      margin-bottom: 30px;
+      align-self: center;
+     text-align: center;
+   }
+   
+   }
+
+   &__slider-body {
+      position: relative;
+      flex: 0 1 percent(803, 1270);
+    overflow: visible;
+    @media (max-width: $tablet) {
+      flex:1 1 auto;
+   }
+   @media (max-width: $mobileSmall) {
+   left: -15px;
+   width: calc(100% + 30px);
+   }
+    .controls{
+      position: absolute;
+      z-index: 10;
+      bottom: 0;
+      left: 396px;
+      margin: 0;
+      @media (max-width: $mobile) {
+         bottom: -40px;
+         left: 50%;
+         transform: translateX(-50%);
+   }
+   }
+   .controls__buttons{
+      position: absolute;
+      z-index: 10;
+      top: 50%;
+      left: -24px;
+      transform: translateY(-50%);
+      width: calc(100% + 40px);
+      display: flex;
+      justify-content: space-between;
+      pointer-events: none;
+      button{
+         background-color: #fff;
+         color: $orangeColor;
+         pointer-events: all;
+         transition: all 0.3s ease 0s;
+         &:hover{
+            background-color: $orangeColor;
+            color: #fff;
+         }
+      }
+      @media (max-width: $tablet) {
+         left: 24px;
+         width: calc(100% - 24px);
+      }
+      @media (max-width: $mobileSmall) {
+
+         width: calc(100% - 48px);
+      }
+   }
+   }
+
+   &__slider {
+      position: relative;
+      min-width: 0;
+      
+   }
+
+   &__slider-wraper {
+      
+   }
+
+   &__slider-slide {
+
+      position: relative;
+      max-width: 372px;
+      .slide-rooms__img{
+         img{
+            height: 83.505%;
+         }
+      }
+      &.swiper-slide-active{
+         
+         .slide-rooms__img{
+            img{
+               height: 100%;
+            }
+         }
+      }
+      @media (max-width: $mobileSmall) {
+         max-width: unset;
+            width: inherit;
+            .slide-rooms__img{
+               img{
+                  height: 100%;
+               }
+            }
+         &.swiper-slide-active{
+            max-width: unset;
+            width: 100%;
+         }
+         
+      }
+   }
+   
+}
+.content-rooms {
+
+   &__body {
+      width: 378px;
+   }
+
+   &__title {
+      color: $mainColor;
+      font-weight: 700;
+      @include adaptiveValueREM('font-size', 40, 20);
+      line-height: 1.2;
+      margin-bottom: 8px;
+   }
+
+   &__text {
+      color: $darckGrayColor;
+      font-weight: 500;
+      line-height: 1.6;
+      margin-bottom: 24px;
+   }
+
+   &__btn {
+      
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: $orangeColor;
+      color: #fff;
+      font-weight: 600;
+      line-height: 1.5;
+      transition: all 0.3s ease 0s;
+     &:hover {
+      background-color: rgba(232, 159, 113, 0.3);
+      color: $orangeColor;
+      }
+      @media (max-width: $tablet) {
+         max-width: unset;
+      }
+   }
+}
+.slide-rooms {
+
+   &__img {
+   position: relative;
+   @include adaptiveValueREM('height', 582, 400);
+   transition: all 0.5s ease 0s;
+      img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: fill;
+      transition: all 0.5s ease 0s;
+      }
+   }
+
+   &__description {
+      position: absolute;
+      left: 0;
+      bottom: 0;
+     display: flex;
+     @include adaptiveValueREM('margin-left', 24, 10);
+     @include adaptiveValueREM('margin-bottom', 24, 10);
+     align-items: flex-end;
+   }
+   &__description-content{
+      @include adaptiveValueREM('padding', 32, 10);
+      @supports ((-webkit-backdrop-filter: blur(3px)) or (backdrop-filter: blur(3px))) {
+         background: rgba(255, 255, 255, 0.72);
+         backdrop-filter: blur(3px);
+      }
+   }
+   &__description-text {
+      display: grid;
+      grid-template-columns: auto 27px auto;
+      gap: 8px;
+      align-items: center;
+      justify-content: start;
+      margin-bottom: 8px;
+   }
+
+   &__description-title {
+      font-weight: 600;
+      line-height: 1.2;
+      color: $mainColor;
+      @include adaptiveValueREM('font-size', 28, 18);
+   }
+
+   &__description-btn {
+   }
+
+   &__description-link {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 48px;
+      height: 48px;
+      background-color: $orangeColor;
+      color: #fff;
+   }
+}
+.swiper-slide {
+}
+.slide-rooms-text {
+   &__slide-number, &__text {
+      font-weight: 500;
+      line-height: 1.5;
+      color: $darckGrayColor;
+   }
+
+   &__dash {
+      height: 1px;
+      background-color: $darckGrayColor;
+      width: 100%;
+   }
+
+   
+}
+/*ROOMS*/
+//=======================================================================================

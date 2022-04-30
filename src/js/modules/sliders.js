@@ -3,7 +3,7 @@
 
 function initSliders() {
 
-   new Swiper('.swiper', {
+   new Swiper('.slider-main__slider', {
       observer: true,
       observeParents: true,
       slidesPerView: 1,
@@ -13,16 +13,44 @@ function initSliders() {
       speed: 800,
       parallax: true,
       pagination: {
-         el: '.controls__dots',
+         el: '.slider-main .controls__dots',
          clickable: true,
       },
       // Arrows
       navigation: {
-         nextEl: '.controls__right-btn',
-         prevEl: '.controls__left-btn ',
+         nextEl: '.slider-main .controls__right-btn',
+         prevEl: '.slider-main .controls__left-btn ',
+      },
+   });
+
+   new Swiper('.rooms__slider', {
+      observer: true,
+      observeParents: true,
+      slidesPerView: 1,
+      spaceBetween: 24,
+      loop: true,
+      watchOverflow: true,
+      loopAdditionalSlides: 5,
+      preloadImages: false,
+      speed: 800,
+      parallax: true,
+      pagination: {
+         el: '.rooms-slider .controls__dots',
+         clickable: true,
+      },
+      // Arrows
+      navigation: {
+         nextEl: '.rooms__slider-body .controls__right-btn',
+         prevEl: '.rooms__slider-body .controls__left-btn ',
+      },
+      breakpoints: {
+         479: {
+            slidesPerView: 'auto',
+         }
       },
    });
 }
+
 
 
 
