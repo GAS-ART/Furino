@@ -49,6 +49,39 @@ function initSliders() {
          }
       },
    });
+
+   new Swiper('.slider-tips__swiper', {
+      observer: true,
+      observeParents: true,
+      slidesPerView: 1,
+      spaceBetween: 0,
+      loop: true,
+      watchOverflow: true,
+      loopAdditionalSlides: 3,
+      preloadImages: false,
+      speed: 800,
+      parallax: false,
+      pagination: {
+         el: '.slider-tips__body .controls__dots',
+         clickable: true,
+      },
+
+      // Arrows
+      navigation: {
+         nextEl: '.tips__slider .controls__right-btn',
+         prevEl: '.tips__slider .controls__left-btn ',
+      },
+      breakpoints: {
+         479: {
+            slidesPerView: 2,
+            spaceBetween: 16,
+         },
+         992: {
+            slidesPerView: 3,
+            spaceBetween: 32,
+         },
+      },
+   });
 }
 
 

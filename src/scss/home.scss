@@ -731,6 +731,7 @@
    background-color: #FCF8F3;
    overflow: hidden;
    @include adaptiveValueREM("padding-bottom", 84, 40);
+   @include adaptiveValueREM("margin-bottom", 88, 30);
    @media (max-width: $tablet) {
    padding-top: 25px;
    }
@@ -990,3 +991,135 @@
 }
 /*ROOMS*/
 //=======================================================================================
+
+
+.tips {
+
+   &__container {
+   }
+
+   &__title {
+   }
+
+   &__slider {
+      position: relative;
+      overflow: hidden;
+      margin: 0 -32px;
+      padding:32px;
+    @media (max-width: $mobileSmall) {
+    margin: 0;
+    padding: 0;
+    }
+    @media (max-width: $mobileSmall) {
+      width: calc(100% + 30px);
+      left: -15px;
+    }
+      .controls__buttons{
+         position: absolute;
+         z-index: 10;
+         top:161px;
+         left: 0px;
+         transform: translateY(-50%);
+         width: 100%;
+         display: flex;
+         justify-content: space-between;
+         pointer-events: none;
+         button{
+            background-color: #fff;
+            color: $orangeColor;
+            pointer-events: all;
+            transition: all 0.3s ease 0s;
+            &:hover{
+               background-color: $orangeColor;
+               color: #fff;
+            }
+         }
+         @media (max-width: em(1360)) {
+            left: 32px;
+            width: calc(100% - 64px);
+         }
+         @media (max-width: $mobileSmall) {
+   
+            width: calc(100% - 48px);
+         }
+      }
+   }
+   .slider-main__controls{
+      @media (max-width: $mobileSmall) {
+         margin: 0 0 15px 0;
+      }
+   }
+   .controls__dots{
+      text-align: center;
+     
+   }
+}
+.slider-tips {
+   
+   &__swiper {
+     
+   }
+
+   &__body {
+      
+   }
+
+   &__wrapper {
+      margin-bottom: 25px;
+      @media (max-width: $mobileSmall) {
+         margin: 0;
+      }
+   }
+
+   &__slide {
+      &:hover{
+        box-shadow: 0 0 32px rgba(97, 97, 97, 0.2);
+      }
+      @media (max-width: $mobileSmall) {
+         &:hover{
+            box-shadow: none;
+         }
+      }
+   }
+}
+
+.tips-slide {
+
+   &__body {
+   }
+
+   &__img {
+      position: relative;
+      padding-bottom:62.44%;
+      //flex: 0 1 900px; // если картинка во флекс контейнере, надо задать ширину флексом
+      img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: fill;
+      }
+   }
+
+   &__content {
+      padding: 16px 0 16px 16px;
+      @media (max-width: $mobileSmall) {
+         padding: 16px 0 0px 16px;
+      }  
+   }
+
+   &__title {
+      color: $mainColor;
+      font-weight: 600;
+@include adaptiveValueREM('font-size', 24,18 );
+line-height: 1.2;
+margin-bottom: 8px;
+   }
+
+   &__date {
+color: $grayColor;
+font-size: rem(14);
+line-height: 1.5;
+   }
+}
