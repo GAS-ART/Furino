@@ -992,9 +992,10 @@
 /*ROOMS*/
 //=======================================================================================
 
-
+/*TIPS*/
+//=======================================================================================
 .tips {
-
+   @include adaptiveValueREM("margin-bottom", 88, 30);
    &__container {
    }
 
@@ -1123,3 +1124,159 @@ font-size: rem(14);
 line-height: 1.5;
    }
 }
+/*TIPS*/
+//=======================================================================================
+
+/*FURNITURE*/ 
+//=======================================================================================
+.furniture {
+   @include adaptiveValueREM("margin-bottom", 88, 30);
+   &__subtitle {
+      text-align: center;
+      font-weight: 600;
+      color: $darckGrayColor;
+      line-height: 1.5;
+      @include adaptiveValueREM('font-size', 20,16 );
+      margin-bottom: 8px;
+   }
+
+   &__title {
+      @media (pointer: fine) {
+         margin-bottom: -21px;
+      }
+   }
+
+   &__gallery {
+     
+   }
+}
+.gallery-furniture {
+
+   &__body {
+      @media (pointer: fine) {
+         position: relative;
+         display: grid;
+         grid-template-columns: auto;
+         grid-auto-flow: column;
+         gap: 16px;
+         justify-content: center;
+         overflow: hidden;
+      }
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+   }
+
+   &__row {
+      @media (pointer: fine) {
+         display: grid;
+         grid-template-columns: auto;
+         grid-template-rows: auto;
+            &:nth-child(2){
+              align-self: center;
+            }
+      }
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+   }
+
+   &__item{
+      @media (pointer: fine) {
+         display: flex;
+         flex-direction: row;
+         &:not(:last-child){
+            margin-bottom: 16px;
+          }
+          .gallery-furniture__img{
+            &:not(:last-child){
+            margin-right: 16px;
+            }
+         }
+      }
+      @media (any-pointer: coarse) {
+         display: flex;
+         flex-direction: row;
+         align-items: center;
+      }
+      @media (any-pointer: coarse ) and (max-width: $mobileSmall) {
+         flex-direction: column !important;
+   }
+   }
+
+   &__item-left-top {
+      @media (pointer: fine) {
+         .gallery-furniture__img{
+            align-self: flex-end;
+         }
+      }
+      
+   }
+
+   &__img {
+      @media (pointer: fine) {
+         filter: grayscale(1);
+      transition: all 0.5s ease 0s;
+      cursor: pointer;
+      &:hover{
+         filter: grayscale(0);
+      }
+      }
+      @media (any-pointer: coarse ) {
+         margin-bottom: 16px;
+         margin-right: 16px;
+         position: relative;
+         img {
+         position: relative;
+         top: 0;
+         left: 0;
+         width: 100%;
+         height: 100%;
+         object-fit: fill;
+         }
+      }
+      
+      @media (any-pointer: coarse ) and (max-width: $mobileSmall) {
+         margin-right: 0 !important;
+   }
+
+   }
+
+   &__item-left-bottom {
+      @media (pointer: fine) {
+         .gallery-furniture__img{
+            &:first-child{
+               margin-left: auto;
+            }
+         }
+      }
+      
+   }
+
+   &__item-center {
+      
+      .gallery-furniture__img{
+
+      }
+   }
+
+   &__item-right-top {
+      @media (pointer: fine) {
+         .gallery-furniture__img{
+            align-self: flex-end;
+         }
+      }
+      
+   }
+
+   &__item-right-bottom {
+      .gallery-furniture__img{
+
+      }
+   }
+}
+
+/*FURNITURE*/
+//=======================================================================================

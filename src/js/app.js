@@ -6,6 +6,8 @@ import { isWebp } from './modules/functions.js';
 import { validate } from './modules/formValidate.js';
 import "./modules/sliders.js";
 import { popUp } from './modules/popup.js';
+import lightGallery from './modules/lightgallery/lightgallery.es5.js';
+import lightGalleryZoom from './modules/lightgallery/lg-zoom.es5.js';
 
 
 isWebp();
@@ -453,6 +455,14 @@ window.onload = function () {
       }
    }
    /*===================================================КОРЗИНА===================================================*/
+
+   //Gallery furniture
+   lightGallery(document.querySelector('.gallery-furniture'), {
+      selector: '.gallery-furniture__img',
+      plugins: [lightGalleryZoom],
+      zoom: true,
+      scale: 0.5,
+   });
 }
 
 
