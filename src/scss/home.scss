@@ -1151,7 +1151,7 @@ line-height: 1.5;
    }
 }
 .gallery-furniture {
-
+   overflow: hidden;
    &__body {
       @media (pointer: fine) {
          position: relative;
@@ -1160,7 +1160,7 @@ line-height: 1.5;
          grid-auto-flow: column;
          gap: 16px;
          justify-content: center;
-         overflow: hidden;
+         
       }
       display: flex;
       flex-direction: column;
