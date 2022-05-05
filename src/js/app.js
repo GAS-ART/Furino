@@ -17,10 +17,23 @@ window.onload = function () {
    const menuButton = document.querySelectorAll('.menu__item-button');
    const searchForm = document.querySelector('.search-form__form');
    const searchButton = document.querySelector('.search-form__button');
-   const searchFormAction = document.querySelector('.search-form__form');
    const burger = document.querySelector('.icon-menu');
    const emailSubmitForm = document.getElementById('form');
 
+   //Popup-links
+   let linksPopup = document.querySelectorAll('.link-on-popup');
+   function popupLinkClick() {
+      linksPopup.forEach(link => {
+         link.addEventListener('click', function (e) {
+            const popupId = this.dataset.popupId;
+            popUp(popupId);
+            e.preventDefault();
+         });
+      });
+   }
+   popupLinkClick();
+
+   //verify email
    emailSubmitForm.addEventListener('submit', formSend);
 
    function formSend(e) {
@@ -57,9 +70,13 @@ window.onload = function () {
    searchButton.addEventListener('click', function () {
       searchForm.classList.toggle('active');
    });
-   searchFormAction.addEventListener('click', function (e) {
-      e.preventDefault;
-   });
+   searchForm.addEventListener('submit', stopSearch);
+   function stopSearch(e) {
+      popUp(e.target.dataset.popupId);
+      e.target.reset();
+      e.preventDefault();
+      return false;
+   }
 
    //Убираем active при клике
    function documentActions(e) {
@@ -198,11 +215,11 @@ window.onload = function () {
             <div class="hover-product__actions">
                <div class="hover-product__btn">Add to cart</div>
                <div class="hover-product__social">
-                  <a href="${product.shareUrl}" class="hover-product__share _icon-share">Share</a>
-                  <a href="${product.likeUrl}" class="hover-product__like _icon-favorite">Like</a>
+                  <a data-popup-id="linkPopup" href="${product.shareUrl}" class="hover-product__share link-on-popup _icon-share">Share</a>
+                  <a data-popup-id="linkPopup" href="${product.likeUrl}" class="hover-product__like link-on-popup _icon-favorite">Like</a>
                </div>
             </div>
-            <a href="${product.linkUrl}" class="hover-product__look">
+            <a data-popup-id="linkPopup" href="${product.linkUrl}" class="hover-product__look link-on-popup">
                <p>Learn more</p>
                <div class="_icon-arrow-link"></div>
             </a>
@@ -214,7 +231,8 @@ window.onload = function () {
             }
          }
       });
-
+      linksPopup = document.querySelectorAll('.link-on-popup');
+      popupLinkClick();
    }
 
    /*===================================================КОРЗИНА===================================================*/
@@ -380,11 +398,11 @@ window.onload = function () {
       if (!cartProduct) {
          const cartProductContent = `
 
-<a href="#" class="cart-list__img">${cartProductImg}<div class="cart-list__price-item">${cartProductPrice.toLocaleString('de-DE', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0, })}</div></a>
+<a data-popup-id="linkPopup" href="#" class="cart-list__img link-on-popup">${cartProductImg}<div class="cart-list__price-item">${cartProductPrice.toLocaleString('de-DE', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0, })}</div></a>
 
 
 <div class="cart-list__body">
-   <a href="#" class="cart-list__name">${cartPproductName}</a>
+   <a data-popup-id="linkPopup" href="#" class="cart-list__name link-on-popup">${cartPproductName}</a>
    <div class="cart-list__quantity"><div class="cart-list__price">${cartProductPrice.toLocaleString('de-DE', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0, })}</div><button class="cart-list__btn-plus">+</button><span> 1 </span><button class="cart-list__btn-minus">-</button></div>
    <a href="#" class="cart-list__delete">Delete</a>
 </div>`;
@@ -395,6 +413,8 @@ window.onload = function () {
          cartProduct.querySelector('.cart-list__price').innerHTML = sum.toLocaleString('de-DE', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 });
       }
       productBtn.classList.remove('_hold');
+      linksPopup = document.querySelectorAll('.link-on-popup');
+      popupLinkClick();
    }
 
    function removePriceFromCart(cartProductPrice, cartProduct, productBtn, cartList) {
@@ -522,7 +542,6 @@ window.onload = function () {
          galeryBody.classList.remove('_init');
       });
    }
-
 }
 
 

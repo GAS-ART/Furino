@@ -176,3 +176,16 @@
    }
 }
 /*----CART-POP-UP----*/
+
+/*----LINK-POP-UP----*/
+.popup__text-link{
+   @include adaptiveValueREM('font-size', 22,18 );
+text-align: center;
+p{
+   margin-top: 15px;
+}
+@media (max-width: $mobileSmall) {
+   margin-top: 30px;
+}
+}
+/*----LINK-POP-UP----*/
